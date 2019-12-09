@@ -435,6 +435,7 @@ def features_extractor(apks_directory, single_analysis, dynamic_analysis_folder,
     # EXPORTING TO MONGODB
     ############################################################
     if export_mongodb is not None:
+        print "exporting to mongodb ..."
         for apk_key in database.keys():
             for call in database[apk_key]["Static_analysis"]["API calls"].keys():
                 database[apk_key]["Static_analysis"]["API calls"][call.replace(".", "-")] = \
@@ -469,7 +470,7 @@ def features_extractor(apks_directory, single_analysis, dynamic_analysis_folder,
         client = MongoClient('mongodb://' + export_mongodb)
         # Creating database
         db = client['AndroPyTool_database']
-
+        print database
         coll = db['report_' + TIME_EXECUTION]
 
         coll.insert_one(database).inserted_id
